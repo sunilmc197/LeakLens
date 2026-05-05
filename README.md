@@ -126,24 +126,35 @@ Password:
 
 ## 📸 Screenshots
 
-### 📊 Dashboard
+### Login Page
+<img width="1366" height="688" alt="SELD 1" src="https://github.com/user-attachments/assets/a2af9b38-0abe-4245-bc71-4f03155637ba" />
 
 
-### 💳 Expense Management
+### DashBoard
 
-![Expenses](./assets/expenses.png)
+<img width="1362" height="677" alt="SELD 2" src="https://github.com/user-attachments/assets/f54f6a1c-a405-492d-afc7-847276ccd878" />
 
-### 🔍 Leakage Analysis
 
-![Analysis](./assets/analysis.png)
+### DashBoard Graph
 
-### 🤖 AI Advisor
+<img width="1361" height="669" alt="SELD 3" src="https://github.com/user-attachments/assets/e839a2e4-1242-443c-a7d0-19930380dff5" />
 
-![AI Advisor](./assets/ai.png)
+### Expense Adder
 
-### 📄 Reports
+<img width="1366" height="686" alt="SELD 4" src="https://github.com/user-attachments/assets/42e0ecfe-da65-4f04-afca-0f5e4f225e25" />
 
-![Reports](./assets/reports.png)
+
+### Leakage Analysis
+
+<img width="1366" height="687" alt="SELD 5" src="https://github.com/user-attachments/assets/ce748129-3df2-45d6-ba2d-4406f7265528" />
+
+### AI Advisor
+
+<img width="1366" height="684" alt="SELD 6" src="https://github.com/user-attachments/assets/3deddb91-8712-45dc-b274-6d4e3ac0b56d" />
+
+### Report Download
+
+<img width="1366" height="685" alt="SELD 7" src="https://github.com/user-attachments/assets/92f7c2ff-8c31-4db9-be51-913fe922ad13" />
 
 ---
 
