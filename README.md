@@ -1,171 +1,178 @@
-# 🛡️ ExpenseGuard AI — Smart Expense Leakage Detection System
+# 🛡️ LeakLens — AI Expense Leakage Detection System
 
-A full-stack frontend application for detecting expense fraud, policy violations, and financial leakages using a custom-trained AI model powered by the Claude API.
-
----
-
-## 🚀 Quick Start
-
-1. **Unzip** the project folder
-2. **Open `index.html`** in any modern browser (Chrome, Firefox, Edge, Safari)
-3. **Login with demo account:**
-   - Email: `admin@demo.com`
-   - Password: `demo123`
-   - OR click **"Create free account"** to register a new user
-
-> ✅ No server required. Runs entirely in the browser using localStorage.
+LeakLens is a smart, AI-powered web application that detects expense anomalies, policy violations, and financial leakages in real-time. It helps organizations monitor spending, identify risks, and recover potential losses efficiently.
 
 ---
 
-## 📁 Project Structure
+## 🚀 Live Features
 
-```
-expenseguard/
-├── index.html          ← Login / Register page
-├── dashboard.html      ← Main app (all pages)
-├── css/
-│   ├── main.css        ← Global styles, variables, shared components
-│   ├── auth.css        ← Auth page styles
-│   └── app.css         ← Dashboard & app styles
-└── js/
-    ├── storage.js      ← localStorage data layer + seed data
-    ├── auth.js         ← Login / Register logic
-    ├── charts.js       ← Pure SVG chart engine (no dependencies)
-    ├── ai.js           ← Claude API integration + AI training engine
-    └── app.js          ← Main app controller, all page logic
-```
+### 📊 Dashboard Overview
+
+* View total expenses, leakage detected, anomalies, and recoverable amount
+* Category-wise leakage visualization
+* Risk breakdown (High / Medium / Low)
+* Recent high-risk transactions
 
 ---
-
-## 📊 Features
-
-### 🔐 Authentication
-- **Login** with email + password validation
-- **Register** new account (full name, company, email, password)
-- Session persisted in localStorage
-- Demo account pre-seeded
-
-### 📊 Dashboard
-- KPI cards: Total Leakage, Anomaly Count, Recovered Amount, AI Accuracy
-- Leakage by Category (horizontal bar chart)
-- Risk breakdown donut chart
-- Recent high-risk anomalies table
-- AI model accuracy trend line chart
-- Weekly anomaly bar chart
 
 ### 💳 Expense Management
-- Submit new expenses with **live AI analysis via Claude API**
-- Filter by Risk Level and Category
-- Full expense table with risk badges and AI-generated reasons
+
+* Add and analyze expenses using AI
+* Automatic risk classification (HIGH / MED / LOW)
+* AI-generated reasoning for each transaction
+* Filter expenses by category and risk level
+
+---
 
 ### 🔍 Leakage Analysis
-- Leakage rate stats by category
-- Anomaly scatter plot (Amount vs Risk Score)
-- Leakage by day-of-week bar chart
-- Vendor risk profiler with risk scores
-- Monthly leakage trend line chart
 
-### 🧠 AI Model Training *(Newly Trained — not a pre-built model)*
-Real 4-step training pipeline simulation:
-1. **Data Preprocessing** — Record normalization, feature encoding, imputation
-2. **Anomaly Pattern Learning** — Isolation Forest + Neural Network ensemble with live epoch/loss tracking
-3. **Policy Rule Integration** — Encoding 12 company expense policies as model constraints
-4. **Validation & Calibration** — Accuracy, Precision, Recall, F1 Score metrics
+* Overall leakage rate calculation
+* High-risk transaction insights
+* Anomaly scatter plot (Amount vs Risk Score)
+* Leakage trends by day of the week
+* Vendor risk profiling
 
-After training:
-- Performance metrics dashboard
-- Confusion matrix (True Positive/Negative, False Positive/Negative)
-- Training loss curve chart
+---
 
-### 💬 AI Advisor Chat
-Powered by Claude API with 4 specialist modes:
-- **💡 Advisor** — General expense optimization advice
-- **🔍 Analyzer** — Deep-dive expense fraud analysis
-- **📋 Policy** — Corporate expense policy Q&A
-- **📈 Forecast** — Spending trend forecasting
+### 🤖 AI Advisor
 
-### ⚙️ Rules Engine
-- Toggle 8 pre-built detection rules on/off
-- Add custom rules with condition type, threshold, and risk level
-- Rules feed into the AI training pipeline
+* Interactive AI chat assistant
+* Provides:
+
+  * Expense insights
+  * Fraud detection explanations
+  * Cost optimization suggestions
+  * Policy guidance
+
+---
+
+### 📄 Reports & Insights
+
+* Monthly leakage vs recovered analysis
+* Top leakage sources identification
+* Export reports:
+
+  * PDF
+  * Excel
+  * CSV
+
+---
+
+## 🧠 AI Capabilities
+
+* Detects:
+
+  * Duplicate transactions
+  * High-value anomalies
+  * Policy violations
+  * Suspicious spending patterns
+
+* Generates:
+
+  * Risk Score (0–100)
+  * Risk Level (HIGH / MED / LOW)
+  * AI-based explanation
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** HTML, CSS, JavaScript
+* **Storage:** LocalStorage
+* **AI Integration:** Claude API
+* **Charts:** Custom SVG-based visualization
+
+---
+
+## 📂 Project Structure
+
+```
+LeakLens/
+│
+├── index.html          # Login & Register page
+├── dashboard.html      # Main application
+├── css/
+│   ├── main.css
+│   ├── auth.css
+│   └── app.css
+├── js/
+│   ├── app.js
+│   ├── ai.js
+│   ├── auth.js
+│   ├── charts.js
+│   └── storage.js
+└── README.md
+```
+
+---
+
+## ⚙️ How to Run
+
+1. Download or clone the repository
+2. Open `index.html` in your browser
+3. Login or register
+4. Start adding expenses and analyzing leakage
+
+---
+
+## 🔐 Demo Credentials
+
+```
+Email:  
+Password: 
+```
+
+---
+
+## 📸 Screenshots
+
+### 📊 Dashboard
+
+
+### 💳 Expense Management
+
+![Expenses](./assets/expenses.png)
+
+### 🔍 Leakage Analysis
+
+![Analysis](./assets/analysis.png)
+
+### 🤖 AI Advisor
+
+![AI Advisor](./assets/ai.png)
 
 ### 📄 Reports
-- YTD expense summary stats
-- Monthly leakage vs recovered chart
-- Top leakage sources ranked list
-- Export buttons (PDF, Excel, CSV, Share Link)
 
-### 🔧 Settings
-- Update account name, email, company
-- Adjust alert thresholds
-- Data reset
+![Reports](./assets/reports.png)
 
 ---
 
-## 🤖 AI Architecture
+## 🌟 Key Highlights
 
-The AI engine uses a **newly trained model approach** — not a pre-existing classifier:
-
-```
-Training Pipeline:
-Raw Expense Data
-  → Feature Engineering (amount, category, vendor, time, duplicates)
-  → Isolation Forest (unsupervised anomaly detection)
-  + Neural Network (supervised classification with policy labels)
-  → Ensemble Model
-  → Policy Constraint Layer (hard rules from Rules Engine)
-  → Calibrated Probability Output
-  → Risk Score (0-100) + Risk Label (HIGH/MED/LOW)
-```
-
-**Live expense analysis** calls the Claude API to perform contextual reasoning beyond rule-based detection — catching edge cases, unusual patterns, and vendor-specific anomalies.
+* Real-time AI-based expense analysis
+* Clean and modern UI/UX
+* Fully client-side (no backend required)
+* Easy to use and extend
+* Designed for finance and audit use cases
 
 ---
 
-## 🎨 Design System
+## 📌 Future Enhancements
 
-- **Font:** Syne (headings) + DM Sans (body)
-- **Theme:** Dark industrial with teal/cyan accent
-- **Charts:** Custom pure SVG engine — zero external dependencies
-- **Colors:**
-  - Accent: `#00d4aa` (teal)
-  - Blue: `#0098ff`
-  - Red: `#ff6b6b` (HIGH risk)
-  - Yellow: `#ffd166` (MED risk)
-  - Purple: `#a855f7`
+* Backend integration (Node.js / Firebase)
+* Real-time database
+* Advanced ML model training
+* Multi-user collaboration
+* Role-based access control
 
 ---
 
-## 📦 Dependencies
+## 👨‍💻 Author
 
-| Dependency | Purpose |
-|------------|---------|
-| Google Fonts | Syne + DM Sans typography |
-| Claude API | Live expense analysis + AI chat |
-| None (charts) | Pure SVG — no Chart.js, D3, etc. |
-| localStorage | All data persistence |
+**Sunil MC**
 
 ---
 
-## 🔧 Customization
+## ⭐ If you like this project
 
-**Add your own API key:** The app uses the Anthropic API. If calls fail, it gracefully falls back to rule-based analysis. To use your own key, you would need a backend proxy (browser security prevents direct API key embedding in production).
-
-**Add real data:** Replace the seed data in `js/storage.js` → `getSeedExpenses()` with your own expense records.
-
-**Add real policies:** Edit `getSeedRules()` in `storage.js` to match your company's actual expense policies.
-
----
-
-## 💡 Tech Stack
-
-- **HTML5** — Semantic markup
-- **CSS3** — Custom properties, animations, grid, flexbox
-- **Vanilla JavaScript** — No frameworks, no build tools
-- **Claude API (claude-sonnet-4)** — AI analysis and chat
-- **localStorage** — Client-side data persistence
-- **SVG** — Custom-built chart engine
-
----
-
-*Built with ExpenseGuard AI · Smart Expense Leakage Detection*
+Give it a ⭐ on GitHub and share it!
