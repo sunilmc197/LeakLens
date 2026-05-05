@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeakLens — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="js/css/main.css" />
+    <link rel="stylesheet" href="js/css/app.css" />
+  </head>
+
+  <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-logo">
+        <span>🛡️</span>
+        <span class="gradient-text">LeakLens</span>
+      </div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text" id="loadingMsg">Loading your dashboard...</div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- App Shell -->
+    <div class="app-shell" id="appShell" style="display: none">
+      <!-- ══════════ SIDEBAR ══════════ -->
+      <nav class="sidebar" id="sidebar">
+        <div class="sb-brand">
+          <div class="sb-brand-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 1L2 5v5c0 4.4 3.4 8.5 8 9.5 4.6-1 8-5.1 8-9.5V5L10 1z"
+                fill="url(#sgs)"
+                opacity=".9"
+              />
+              <path
+                d="M7 10l2 2 4-4"
+                stroke="#fff"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <defs>
+                <linearGradient id="sgs" x1="2" y1="1" x2="18" y2="19">
+                  <stop stop-color="#00d4aa" />
+                  <stop offset="1" stop-color="#0098ff" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="sb-brand-name">LeakLens</span>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-label">Overview</div>
+          <div class="nav-item active" data-page="dashboard">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+          </div>
+          <div class="nav-item" data-page="expenses">
+            <span class="nav-icon">💳</span>
+            <span class="nav-label">Expenses</span>
+            <span class="nav-badge" id="riskBadge">0</span>
+          </div>
+          <div class="nav-item" data-page="analysis">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Leakage Analysis</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-label">AI Engine</div>
+          <div class="nav-item" data-page="chat">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">AI Advisor</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-label">Reporting</div>
+          <div class="nav-item" data-page="reports">
+            <span class="nav-icon">📄</span>
+            <span class="nav-label">Reports</span>
+          </div>
+          <div class="nav-item" data-page="settings">
+            <span class="nav-icon">🔧</span>
+            <span class="nav-label">Settings</span>
+          </div>
+        </div>
+
+        <div class="sb-footer">
+          <div class="user-tile">
+            <div class="user-avatar" id="userAvatar">AJ</div>
+            <div>
+              <div class="user-name" id="userName">Alex Johnson</div>
+              <div class="user-role" id="userRole">Finance Admin</div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- ══════════ MAIN AREA ══════════ -->
+      <div class="main-area">
+        <!-- Top Bar -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <div class="page-title" id="pageTitle">Dashboard</div>
+          </div>
+          <div class="topbar-right">
+            <div class="model-pill">
+              <div class="status-dot online" id="modelDot"></div>
+              <span id="modelLabel">AI Model Active</span>
+            </div>
+            <div
+              class="topbar-icon-btn"
+              onclick="
+                showToast(
+                  '🔔',
+                  'Alerts',
+                  '2 new anomalies need review — check Expenses page',
+                  'warning',
+                )
+              "
+              title="Notifications"
+            >
+              🔔
+            </div>
+            <div
+              class="topbar-icon-btn"
+              onclick="handleLogout()"
+              title="Sign Out"
+            >
+              🚪
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-area" id="contentArea">
+          <!-- ──────── PAGE: Dashboard ──────── -->
+          <div class="page active" id="pg-dashboard">
+            <div class="stats-grid" id="dashStats"></div>
+            <div class="grid-3-1">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">📉 Leakage by Category</div>
+                  <div class="card-badge">Last 30 days</div>
+                </div>
+                <div id="categoryChart"></div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">🎯 Risk Breakdown</div>
+                </div>
+                <div id="riskBreakdown"></div>
+              </div>
+            </div>
+            <div class="card mb-24">
+              <div class="card-header">
+                <div class="card-title">🚨 Recent High-Risk Anomalies</div>
+                <button class="btn-ghost" onclick="navTo('expenses')">
+                  View All
+                </button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Merchant</th>
+                      <th>Amount</th>
+                      <th>Category</th>
+                      <th>Risk</th>
+                      <th>AI Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentAnomalies"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">📈 AI Model Accuracy Over Time</div>
+                </div>
+                <div id="accuracyChart"></div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">📊 Weekly Anomaly Count</div>
+                </div>
+                <div id="weeklyChart"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ──────── PAGE: Expenses ──────── -->
+          <div class="page" id="pg-expenses">
+            <div class="card mb-24">
+              <div class="card-header">
+                <div class="card-title">➕ Submit & Analyze Expense</div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Merchant / Vendor</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="expMerchant"
+                    placeholder="e.g. Marriott Hotels"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Amount (₹)</label>
+                  <input
+                    class="form-input"
+                    type="number"
+                    id="expAmount"
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Category</label>
+                  <select class="form-input" id="expCategory">
+                    <option>Travel</option>
+                    <option>Food & Dining</option>
+                    <option>Software</option>
+                    <option>Office Supplies</option>
+                    <option>Marketing</option>
+                    <option>Consulting</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Date</label>
+                  <input class="form-input" type="date" id="expDate" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="expDesc"
+                  placeholder="Brief description of this expense"
+                />
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 0.5rem">
+                <button
+                  class="btn-primary"
+                  style="width: auto; padding: 11px 28px"
+                  onclick="analyzeAndSubmitExpense()"
+                >
+                  🔍 Analyze with AI &amp; Submit
+                </button>
+                <div
+                  id="analyzeSpinner"
+                  style="
+                    display: none;
+                    align-items: center;
+                    gap: 8px;
+                    color: var(--text2);
+                    font-size: 13px;
+                  "
+                >
+                  <div
+                    class="loading-spinner"
+                    style="width: 20px; height: 20px; border-width: 2px"
+                  ></div>
+                  AI analyzing...
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">All Expenses</div>
+                <div style="display: flex; gap: 8px; align-items: center">
+                  <select
+                    class="form-input"
+                    id="filterRisk"
+                    style="padding: 7px 30px 7px 12px; font-size: 12px"
+                    onchange="renderExpensesTable()"
+                  >
+                    <option value="">All Risk Levels</option>
+                    <option value="HIGH">High Risk</option>
+                    <option value="MED">Medium Risk</option>
+                    <option value="LOW">Low Risk</option>
+                  </select>
+                  <select
+                    class="form-input"
+                    id="filterCat"
+                    style="padding: 7px 30px 7px 12px; font-size: 12px"
+                    onchange="renderExpensesTable()"
+                  >
+                    <option value="">All Categories</option>
+                    <option>Travel</option>
+                    <option>Food & Dining</option>
+                    <option>Software</option>
+                    <option>Office Supplies</option>
+                    <option>Marketing</option>
+                    <option>Consulting</option>
+                  </select>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Merchant</th>
+                      <th>Category</th>
+                      <th>Amount</th>
+                      <th>Risk Level</th>
+                      <th>AI Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody id="expensesBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ──────── PAGE: Analysis ──────── -->
+          <div class="page" id="pg-analysis">
+            <div class="stats-grid-3" id="analysisStats"></div>
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">🔵 Anomaly Scatter Plot</div>
+                  <div class="card-badge">AI Detected</div>
+                </div>
+                <div id="scatterChart"></div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">📅 Leakage by Day of Week</div>
+                </div>
+                <div id="dowChart"></div>
+              </div>
+            </div>
+            <div class="card mb-24">
+              <div class="card-header">
+                <div class="card-title">🏢 Vendor Risk Profile</div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Vendor</th>
+                      <th>Total Spend</th>
+                      <th>Anomalies</th>
+                      <th>Risk Score</th>
+                      <th>Pattern</th>
+                    </tr>
+                  </thead>
+                  <tbody id="vendorBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">📆 Monthly Leakage Trend</div>
+              </div>
+              <div id="monthlyTrendChart"></div>
+            </div>
+          </div>
+
+          <!-- ──────── PAGE: AI Chat ──────── -->
+          <div class="page" id="pg-chat">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">💬 AI Expense Advisor</div>
+                <div class="model-pill">
+                  <div class="status-dot online"></div>
+                  <span>Powered by Claude AI</span>
+                </div>
+              </div>
+              <div class="mode-tabs">
+                <button
+                  class="mode-tab active"
+                  data-mode="advisor"
+                  onclick="setChat(this)"
+                >
+                  💡 Advisor
+                </button>
+                <button
+                  class="mode-tab"
+                  data-mode="analyzer"
+                  onclick="setChat(this)"
+                >
+                  🔍 Analyzer
+                </button>
+                <button
+                  class="mode-tab"
+                  data-mode="policy"
+                  onclick="setChat(this)"
+                >
+                  📋 Policy
+                </button>
+                <button
+                  class="mode-tab"
+                  data-mode="forecast"
+                  onclick="setChat(this)"
+                >
+                  📈 Forecast
+                </button>
+              </div>
+              <div class="chat-messages" id="chatMessages"></div>
+              <div class="chat-input-row">
+                <textarea
+                  class="chat-input"
+                  id="chatInput"
+                  rows="1"
+                  placeholder="Ask about anomalies, spending patterns, policy compliance..."
+                  onkeydown="
+                    if (event.key === 'Enter' && !event.shiftKey) {
+                      event.preventDefault();
+                      sendChatMsg();
+                    }
+                  "
+                  oninput="
+                    this.style.height = 'auto';
+                    this.style.height = this.scrollHeight + 'px';
+                  "
+                ></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendChatMsg()">
+                  ↑
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ──────── PAGE: Reports ──────── -->
+          <div class="page" id="pg-reports">
+            <div class="stats-grid" id="reportStats"></div>
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">📅 Monthly Leakage vs Recovered</div>
+                </div>
+                <div id="reportMonthlyChart"></div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">🏆 Top Leakage Sources</div>
+                </div>
+                <div id="topLeakageChart"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">📄 Export Reports</div>
+              </div>
+              <div class="export-btns">
+                <button class="btn-ghost" onclick="exportReport('pdf')">
+                  📄 PDF Report
+                </button>
+                <button class="btn-ghost" onclick="exportReport('excel')">
+                  📊 Excel Export
+                </button>
+                <button class="btn-ghost" onclick="exportReport('csv')">
+                  📋 CSV Data
+                </button>
+                <button class="btn-ghost" onclick="exportReport('link')">
+                  🔗 Shareable Link
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ──────── PAGE: Settings ──────── -->
+          <div class="page" id="pg-settings">
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">👤 Account Settings</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Full Name</label>
+                  <input
+                    class="form-input"
+                    id="setName"
+                    placeholder="Your full name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Company</label>
+                  <input
+                    class="form-input"
+                    id="setCompany"
+                    placeholder="Your company"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input
+                    class="form-input"
+                    id="setEmail"
+                    placeholder="you@company.com"
+                  />
+                </div>
+                <button class="btn-primary" onclick="saveSettings()">
+                  Save Changes
+                </button>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">🔔 Alert Thresholds</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">High Risk Alert Above (₹)</label>
+                  <input
+                    class="form-input"
+                    id="threshHigh"
+                    type="number"
+                    value="50000"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label"
+                    >Duplicate Detection Window (days)</label
+                  >
+                  <input
+                    class="form-input"
+                    id="threshDup"
+                    type="number"
+                    value="3"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Daily Meal Limit (₹)</label>
+                  <input
+                    class="form-input"
+                    id="threshMeal"
+                    type="number"
+                    value="6000"
+                  />
+                </div>
+                <button class="btn-primary" onclick="saveThresholds()">
+                  Update Thresholds
+                </button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">🧠 AI Configuration</div>
+              </div>
+              <div style="margin-bottom: 1rem">
+                <p
+                  style="
+                    color: var(--text2);
+                    font-size: 13px;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  To use Claude AI for expense analysis, provide your
+                  <strong>Anthropic API key</strong>.<br />
+                  Get it from:
+                  <a
+                    href="https://console.anthropic.com/account/keys"
+                    target="_blank"
+                    style="color: #0098ff; text-decoration: underline"
+                    >console.anthropic.com/account/keys</a
+                  >
+                </p>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Claude API Key</label>
+                <input
+                  class="form-input"
+                  id="apiKeyInput"
+                  type="password"
+                  placeholder="sk-ant-..."
+                />
+              </div>
+              <button class="btn-primary" onclick="saveApiKey()">
+                💾 Save API Key
+              </button>
+              <div
+                id="apiKeyStatus"
+                style="
+                  margin-top: 0.75rem;
+                  font-size: 12px;
+                  color: var(--text3);
+                "
+              ></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">🚨 Danger Zone</div>
+              </div>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap">
+                <button class="btn-danger" onclick="confirmReset()">
+                  🗑️ Reset All Data
+                </button>
+                <button class="btn-ghost" onclick="handleLogout()">
+                  🚪 Sign Out
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /content-area -->
+      </div>
+      <!-- /main-area -->
+    </div>
+    <!-- /app-shell -->
+
+    <script src="js/storage.js" defer></script>
+    <script src="js/charts.js" defer></script>
+    <script src="js/ai.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

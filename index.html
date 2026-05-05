@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeakLens — Smart Expense Leakage Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="js/css/main.css" />
+    <link rel="stylesheet" href="js/css/auth.css" />
+  </head>
+
+  <body class="auth-body">
+    <!-- Animated background particles -->
+    <div class="bg-mesh">
+      <div class="mesh-orb orb1"></div>
+      <div class="mesh-orb orb2"></div>
+      <div class="mesh-orb orb3"></div>
+    </div>
+
+    <div class="auth-wrapper">
+      <!-- LEFT PANEL: Branding -->
+      <div class="auth-left">
+        <div class="brand-mark">
+          <div class="brand-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path
+                d="M16 2L4 8v8c0 7 5.4 13.5 12 15 6.6-1.5 12-8 12-15V8L16 2z"
+                fill="url(#sg)"
+                opacity="0.9"
+              />
+              <path
+                d="M11 16l3.5 3.5L21 13"
+                stroke="#fff"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <defs>
+                <linearGradient
+                  id="sg"
+                  x1="4"
+                  y1="2"
+                  x2="28"
+                  y2="30"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#00d4aa" />
+                  <stop offset="1" stop-color="#0098ff" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="brand-name">LeakLens</span>
+        </div>
+
+        <div class="auth-hero">
+          <h1 class="hero-title">
+            Stop the<br /><span class="gradient-text">Money Leak.</span>
+          </h1>
+          <p class="hero-sub">
+            AI that learns your spending patterns and catches every anomaly,
+            duplicate, and policy breach before it costs you.
+          </p>
+        </div>
+
+        <div class="stats-row">
+          <div class="mini-stat">
+            <div class="mini-val">96.2%</div>
+            <div class="mini-lab">Detection Rate</div>
+          </div>
+          <div class="mini-divider"></div>
+          <div class="mini-stat">
+            <div class="mini-val">$18k+</div>
+            <div class="mini-lab">Avg. Recovered</div>
+          </div>
+          <div class="mini-divider"></div>
+          <div class="mini-stat">
+            <div class="mini-val">&lt;2min</div>
+            <div class="mini-lab">AI Train Time</div>
+          </div>
+        </div>
+
+        <!-- Floating alert cards -->
+        <div class="floating-alerts">
+          <div
+            class="alert-card alert-card--red fade-up"
+            style="animation-delay: 0.2s"
+          >
+            <div class="alert-icon">🚨</div>
+            <div class="alert-body">
+              <div class="alert-title">Duplicate Payment</div>
+              <div class="alert-detail">Marriott Hotels — $892 flagged</div>
+            </div>
+            <div class="alert-amt red">–$892</div>
+          </div>
+          <div
+            class="alert-card alert-card--yellow fade-up"
+            style="animation-delay: 0.5s"
+          >
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-body">
+              <div class="alert-title">Policy Violation</div>
+              <div class="alert-detail">Morton's — 4.5× over meal limit</div>
+            </div>
+            <div class="alert-amt yellow">HIGH</div>
+          </div>
+          <div
+            class="alert-card alert-card--green fade-up"
+            style="animation-delay: 0.8s"
+          >
+            <div class="alert-icon">✅</div>
+            <div class="alert-body">
+              <div class="alert-title">AI Model Trained</div>
+              <div class="alert-detail">Accuracy: 96.2% — Ready</div>
+            </div>
+            <div class="alert-amt green">Live</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Auth forms -->
+      <div class="auth-right">
+        <div class="auth-card">
+          <!-- LOGIN FORM -->
+          <div id="loginPanel" class="auth-panel active">
+            <div class="panel-head">
+              <h2 class="panel-title">Welcome back</h2>
+              <p class="panel-sub">Sign in to your LeakLens dashboard</p>
+            </div>
+
+            <div id="loginError" class="form-error" style="display: none"></div>
+
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div class="input-wrap">
+                <span class="input-icon">✉️</span>
+                <input
+                  class="form-input"
+                  type="email"
+                  id="loginEmail"
+                  placeholder="you@company.com"
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-wrap">
+                <span class="input-icon">🔒</span>
+                <input
+                  class="form-input"
+                  type="password"
+                  id="loginPass"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                />
+              </div>
+            </div>
+
+            <button class="btn-primary" onclick="handleLogin()">
+              <span>Sign In</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <div class="auth-switch">
+              New to LeakLens?
+              <a onclick="switchPanel('register')">Create free account →</a>
+            </div>
+          </div>
+
+          <!-- REGISTER FORM -->
+          <div id="registerPanel" class="auth-panel">
+            <div class="panel-head">
+              <h2 class="panel-title">Get started free</h2>
+              <p class="panel-sub">
+                Train your AI and detect leakages in minutes
+              </p>
+            </div>
+
+            <div
+              id="registerError"
+              class="form-error"
+              style="display: none"
+            ></div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="regFirst"
+                  placeholder="Alex"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="regLast"
+                  placeholder="Johnson"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Work Email</label>
+              <input
+                class="form-input"
+                type="email"
+                id="regEmail"
+                placeholder="alex@company.com"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input
+                class="form-input"
+                type="text"
+                id="regCompany"
+                placeholder="Acme Corp"
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Password</label>
+                <input
+                  class="form-input"
+                  type="password"
+                  id="regPass"
+                  placeholder="Min 8 chars"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm</label>
+                <input
+                  class="form-input"
+                  type="password"
+                  id="regPassConf"
+                  placeholder="Repeat"
+                />
+              </div>
+            </div>
+
+            <button class="btn-primary" onclick="handleRegister()">
+              <span>Create Account</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <div class="auth-switch">
+              Already have an account?
+              <a onclick="switchPanel('login')">Sign in →</a>
+            </div>
+          </div>
+        </div>
+        <!-- /auth-card -->
+      </div>
+      <!-- /auth-right -->
+    </div>
+    <!-- /auth-wrapper -->
+
+    <script src="js/storage.js" defer></script>
+    <script src="js/auth.js" defer></script>
+  </body>
+</html>

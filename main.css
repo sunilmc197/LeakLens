@@ -1,0 +1,353 @@
+/* =========================================================
+   ExpenseGuard AI — Main Stylesheet
+   ========================================================= */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --bg:         #0a0c10;
+  --bg2:        #111318;
+  --bg3:        #181b22;
+  --bg4:        #1e222b;
+  --bg5:        #252a35;
+  --border:     #2a2f3d;
+  --border2:    #3a4055;
+  --border3:    #4a5070;
+
+  --text:       #e8eaf2;
+  --text2:      #9aa0b8;
+  --text3:      #5a6278;
+  --text4:      #3a3f52;
+
+  --accent:     #00d4aa;
+  --accent-dim: rgba(0,212,170,.12);
+  --blue:       #0098ff;
+  --blue-dim:   rgba(0,152,255,.12);
+  --red:        #ff6b6b;
+  --red-dim:    rgba(255,107,107,.12);
+  --yellow:     #ffd166;
+  --yellow-dim: rgba(255,209,102,.12);
+  --purple:     #a855f7;
+  --purple-dim: rgba(168,85,247,.12);
+
+  --grad:       linear-gradient(135deg,#00d4aa,#0098ff);
+  --grad-r:     linear-gradient(135deg,#0098ff,#00d4aa);
+  --grad-fire:  linear-gradient(135deg,#ff6b6b,#ffd166);
+
+  --font-head:  'Syne', sans-serif;
+  --font-body:  'DM Sans', sans-serif;
+
+  --radius-sm:  6px;
+  --radius:     10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+
+  --shadow:     0 4px 24px rgba(0,0,0,.4);
+  --shadow-lg:  0 12px 48px rgba(0,0,0,.5);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; -webkit-font-smoothing:antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+a { text-decoration: none; }
+button { font-family: var(--font-body); cursor: pointer; border: none; outline: none; }
+input, select, textarea { font-family: var(--font-body); outline: none; }
+img { max-width: 100%; }
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border3); }
+
+/* ---------- Typography ---------- */
+.gradient-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- Shared Buttons ---------- */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 24px;
+  background: var(--grad);
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: opacity .2s, transform .15s;
+  letter-spacing: .02em;
+}
+.btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: .2s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--red-dim);
+  border: 1px solid rgba(255,107,107,.3);
+  border-radius: var(--radius);
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+.btn-danger:hover { background: rgba(255,107,107,.2); }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.card-sm { padding: 1.1rem 1.25rem; }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.card-title {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.card-badge {
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Forms ---------- */
+.form-group { margin-bottom: 1.1rem; }
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,212,170,.1);
+}
+.form-input::placeholder { color: var(--text4); }
+
+select.form-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%235a6278' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+select.form-input option { background: var(--bg3); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.form-error {
+  background: var(--red-dim);
+  border: 1px solid rgba(255,107,107,.3);
+  border-radius: var(--radius);
+  color: var(--red);
+  font-size: 13px;
+  padding: 10px 14px;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+thead th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--bg3); color: var(--text); }
+tbody td:first-child { color: var(--text); font-weight: 500; }
+
+/* ---------- Risk Badges ---------- */
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+.risk-HIGH { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,.25); }
+.risk-MED  { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,209,102,.25); }
+.risk-LOW  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(0,212,170,.25); }
+
+/* ---------- Progress Bars ---------- */
+.prog-track { height: 6px; background: var(--bg4); border-radius: 3px; overflow: hidden; }
+.prog-fill   { height: 100%; border-radius: 3px; transition: width .6s cubic-bezier(.4,0,.2,1); }
+
+/* ---------- Status Dots ---------- */
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+.status-dot.online  { background: var(--accent); }
+.status-dot.warning { background: var(--yellow); }
+.status-dot.offline { background: var(--text3); animation: none; }
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
+  50%      { opacity: .6; }
+}
+
+/* ---------- Toast Notifications ---------- */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.toast {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 340px;
+  pointer-events: all;
+  animation: toast-in .3s cubic-bezier(.34,1.56,.64,1) forwards;
+  box-shadow: var(--shadow);
+}
+.toast.removing { animation: toast-out .25s ease forwards; }
+.toast-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.toast-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+.toast-msg   { font-size: 12px; color: var(--text2); line-height: 1.4; }
+@keyframes toast-in  { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes toast-out { from { transform:translateX(0); opacity:1; } to { transform:translateX(110%); opacity:0; } }
+
+/* ---------- Loading Screen ---------- */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.loading-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 800;
+}
+.loading-spinner {
+  width: 44px; height: 44px;
+  border: 3px solid var(--border2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; color: var(--text3); }
+
+/* ---------- Utility ---------- */
+.hidden  { display: none !important; }
+.flex    { display: flex; }
+.flex-c  { display: flex; align-items: center; }
+.flex-cb { display: flex; align-items: center; justify-content: space-between; }
+.gap-8   { gap: 8px; }
+.gap-12  { gap: 12px; }
+.gap-16  { gap: 16px; }
+.mt-4    { margin-top: .25rem; }
+.mt-8    { margin-top: .5rem; }
+.mt-16   { margin-top: 1rem; }
+.mb-16   { margin-bottom: 1rem; }
+.mb-24   { margin-bottom: 1.5rem; }
+.text-sm { font-size: 12px; }
+.text-muted { color: var(--text2); }
+.text-dim   { color: var(--text3); }
+.bold    { font-weight: 600; }
+.mono    { font-family: 'Courier New', monospace; }
+
+/* ---------- Fade-up Animation ---------- */
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.fade-up { animation: fade-up .5s ease forwards; opacity: 0; }
