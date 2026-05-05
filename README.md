@@ -1,5 +1,7 @@
 # 🛡️ LeakLens — AI Expense Leakage Detection System
 
+### 📌 Overview
+
 LeakLens is a smart, AI-powered web application that detects expense anomalies, policy violations, and financial leakages in real-time. It helps organizations monitor spending, identify risks, and recover potential losses efficiently.
 
 ---
